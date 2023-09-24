@@ -17,16 +17,21 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         alignItems="center"
       >
         <Box>
-          <Text fontWeight="bold">h662-Animals</Text>
+          <Text fontWeight="bold">NMW-Animals</Text>
         </Box>
         <Link to="/">
           <Button size="sm" colorScheme="blue">
             Main
           </Button>
         </Link>
-        <Link to="/my-animal">
+        <Link to="my-animal">
           <Button size="sm" colorScheme="red">
             My Animal
+          </Button>
+        </Link>
+        <Link to="sale-animal">
+          <Button size="sm" colorScheme="green">
+            Sale Animal
           </Button>
         </Link>
       </Flex>

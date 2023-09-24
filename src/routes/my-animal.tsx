@@ -2,11 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 
 import { Flex, Text, Button, Grid, Spinner } from "@chakra-ui/react";
 
-import {
-  mintAnimalTokenContract,
-  saleAnimalTokenAddress,
-  saleAnimalTokenContract,
-} from "../web3Config";
+import { mintAnimalTokenContract, saleAnimalTokenAddress } from "../web3Config";
 
 import MyAnimalCard, { IMyAnimalCard } from "../components/MyAnimalCard";
 
@@ -25,23 +21,21 @@ const MyAnimal: FC<MyAnimalProps> = ({ account }) => {
         .balanceOf(account)
         .call();
 
-      const tempAnimalCardArray = [];
+      if (balanceLength === "0") return;
 
-      for (let i = 0; i < parseInt(balanceLength, 10); i++) {
-        const animalTokenId = await mintAnimalTokenContract.methods
-          .tokenOfOwnerByIndex(account, i)
-          .call();
+      const tempAnimalCardArray: IMyAnimalCard[] = [];
 
-        const animalType = await mintAnimalTokenContract.methods
-          .animalTypes(animalTokenId)
-          .call();
+      const response = await mintAnimalTokenContract.methods
+        .getAnimalTokens(account)
+        .call();
 
-        const animalPrice = await saleAnimalTokenContract.methods
-          .animalTokenPrices(animalTokenId)
-          .call();
-
-        tempAnimalCardArray.push({ animalTokenId, animalType, animalPrice });
-      }
+      response.map((v: IMyAnimalCard) => {
+        tempAnimalCardArray.push({
+          animalTokenId: v.animalTokenId,
+          animalType: v.animalType,
+          animalPrice: v.animalPrice,
+        });
+      });
 
       setAnimalCardArray(tempAnimalCardArray);
       setIsLoading(false);

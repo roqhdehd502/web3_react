@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Main from "./routes/main";
 import MyAnimal from "./routes/my-animal";
+import SaleAnimal from "./routes/sale-animal";
 
 import Layout from "./components/Layout";
 
@@ -36,6 +37,10 @@ const App: FC = () => {
         <Routes>
           <Route path="/" element={<Main account={account} />} />
           <Route path="my-animal" element={<MyAnimal account={account} />} />
+          <Route
+            path="sale-animal"
+            element={<SaleAnimal account={account} />}
+          />
         </Routes>
       </Layout>
     </BrowserRouter>

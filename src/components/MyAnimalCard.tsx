@@ -9,9 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import Web3 from "web3";
-
-import { saleAnimalTokenContract } from "../web3Config";
+import { web3, saleAnimalTokenContract } from "../web3Config";
 
 import AnimalCard from "./AnimalCard";
 
@@ -47,12 +45,12 @@ const MyAnimalCard: FC<AnimalCardProps> = ({
       const response = await saleAnimalTokenContract.methods
         .setForSaleAnimalToken(
           animalTokenId,
-          Web3.utils.toWei(sellPrice, "ether")
+          web3.utils.toWei(sellPrice, "ether")
         )
         .send({ from: account });
 
       if (response.status) {
-        setMyAnimalPrice(Web3.utils.toWei(sellPrice, "ether"));
+        setMyAnimalPrice(web3.utils.toWei(sellPrice, "ether"));
       }
     } catch (error) {
       console.error(error);
@@ -79,7 +77,7 @@ const MyAnimalCard: FC<AnimalCardProps> = ({
           </>
         ) : (
           <Text display="inline-block">
-            {Web3.utils.fromWei(animalPrice)} Matic
+            {web3.utils.fromWei(animalPrice)} Matic
           </Text>
         )}
       </Box>
